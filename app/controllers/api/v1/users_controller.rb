@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < Api::V1::BaseController
   def new
     # probably unnecessary
     @user = User.new
@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     else
       # send react a message that it didn't work
     end
+  end
+
+  def index
+    respond_with User.all
   end
 
   private
