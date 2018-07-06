@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import App from './components/App';
-import CreateUser from './components/CreateUser';
+import Home from './components/Home';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<CreateUser />, document.getElementById('root'));
+ReactDOM.render(<Home />, document.getElementById('root'));
 registerServiceWorker();
