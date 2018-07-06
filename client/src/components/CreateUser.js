@@ -8,9 +8,8 @@ class CreateUser extends Component {
 
         var form = document.forms.createForm;
         var formData = new FormData(form);
-        console.log("hello");
         // post request to rails database
-        fetch('/signup', {
+        fetch('api/v1/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
