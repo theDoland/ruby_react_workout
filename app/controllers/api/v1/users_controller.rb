@@ -7,10 +7,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   # create a user  
   def create
     @user = User.new(user_params)
-
     # check if valid
     if @user.save
       # send react a message that it worked and save the user in a session
+      respond_with(@user)
     else
       # send react a message that it didn't work
     end

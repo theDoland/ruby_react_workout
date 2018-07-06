@@ -1,11 +1,36 @@
 import React, { Component } from 'react';
 
 class CreateUser extends Component {
+
+    submitForm(event){
+        // prevent the submit form from refreshing page
+        event.preventDefault();
+
+        var form = document.forms.createForm;
+        var formData = new FormData(form);
+        console.log("hello");
+        // post request to rails database
+        fetch('/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    password_confirmation: formData.get('password_confirmation')   
+                } 
+            })
+        })
+        .then(response => console.log(response));
+    }
     render() {
         return (
             <div className="CreateUser">
                 <h1>Sign Up</h1>
-                <form action="#">
+                <form id="createForm" onSubmit={this.submitForm}>
                     Name:                 <input type="text" name="name"/><br/>
                     Email:                <input type="text" name="email"/><br/>
                     Password:             <input type="password" name="password"/><br/> 

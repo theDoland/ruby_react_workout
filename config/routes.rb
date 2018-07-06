@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # need namespace to do renaming below
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index, :create]
     end
   end
+  #get '/signup', to: 'api/v1/users#new'
+  # rename api/v1/users to /signup
+  post '/signup', to: 'api/v1/users#create'
+
 end
