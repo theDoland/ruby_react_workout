@@ -2,14 +2,16 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+        this.getUser = this.getUser.bind(this);
+    }
     getUser(event){
         // prevent the submit form from refreshing page
         event.preventDefault();
-
         var form = document.forms.loginForm;
         var formData = new FormData(form);
-        console.log(formData.get('email'));
-        console.log(formData.get('password'));
+
         fetch('api/v1/login', {
             method: 'POST',
             headers: {
@@ -22,7 +24,16 @@ class Login extends Component {
                 } 
             })
         })
-        .then(response => console.log(response));
+        .then(response => {
+            // success
+            if(response.status === 201){
+                this.props.history.push("/");
+            }    
+            else if(response.status === 204){
+                console.log("Error");
+            }   
+        });
+        
     }
     render() {
         return(

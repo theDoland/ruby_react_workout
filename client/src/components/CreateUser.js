@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 class CreateUser extends Component {
+    constructor(props){
+        super(props);
+        this.submitForm = this.submitForm.bind(this);
+    }
 
     submitForm(event){
         // prevent the submit form from refreshing page
@@ -23,7 +27,15 @@ class CreateUser extends Component {
                 } 
             })
         })
-        .then(response => console.log(response));
+        .then(response => {
+            // success
+            if(response.status === 201){
+                this.props.history.push("/");
+            }    
+            else if(response.status === 204){
+                console.log("Error");
+            }
+        });
     }
     render() {
         return (
