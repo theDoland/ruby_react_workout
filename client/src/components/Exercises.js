@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import "./Exercises.css";
+import axios from 'axios';
 /* 4 main columns 
  * Weight is the only one that can expand into more columns (we have one for now) 
  * Add functionality to add a new row */
@@ -68,7 +68,7 @@ class WorkoutRows extends React.Component {
     }
 }
 
-class WorkoutBox extends React.Component {
+export class WorkoutBox extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -86,6 +86,7 @@ class WorkoutBox extends React.Component {
         this.addNewRow = this.addNewRow.bind(this);
         this.removeRow = this.removeRow.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.saveRows = this.saveRows.bind(this);
 
     }
     handleChange(field,saveIndex,event){
@@ -127,6 +128,28 @@ class WorkoutBox extends React.Component {
             numRows: newRows-1, 
         });
     }
+    saveRows(event){
+        event.preventDefault();
+        // send the rows to api 
+        // PLACEHOLDER
+        var config = {
+            headers: {}
+        };
+        config['headers']['Authorization'] = 'Bearer ' + localStorage.getItem("jwt");
+        axios.get('/api/v1/save', config)
+        .then(response => console.log(response));
+        // i guess the idea is that you get the user and then you just do a post request since you have the user verified
+
+        /*fetch('/api/v1/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                exercise: this.state.exerciseRows
+            })
+        });*/
+    }
     render(){
         return (
             <div className="container bordered">
@@ -135,10 +158,9 @@ class WorkoutBox extends React.Component {
                 addNewRow={() => this.addNewRow(this.state.numRows)}
                 handleChange={this.handleChange}
                 preRows={this.state.exerciseRows}/>
+                <input type="submit" value="Save Workout" onClick={this.saveRows}/>
             </div>
         )
     }
 
 }
-
-export default Exercises;

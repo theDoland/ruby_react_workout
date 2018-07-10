@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class CreateUser extends Component {
     constructor(props){
@@ -13,29 +14,26 @@ class CreateUser extends Component {
         var form = document.forms.createForm;
         var formData = new FormData(form);
         // post request to rails database
-        fetch('api/v1/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user: {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                    password_confirmation: formData.get('password_confirmation')   
-                } 
-            })
+        axios.post('api/v1/signup', {
+            user: {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                password_confirmation: formData.get('password_confirmation')  
+            }
         })
         .then(response => {
             // success
             if(response.status === 201){
-                this.props.history.push("/");
+                // need to set JWT after 
+                this.props.history.push("/home");
             }    
             else if(response.status === 204){
+                // print error message (flash) on the screen
                 console.log("Error");
             }
         });
+
     }
     render() {
         return (

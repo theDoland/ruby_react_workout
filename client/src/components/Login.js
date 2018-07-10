@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Login extends Component {
     constructor(props){
@@ -12,25 +13,21 @@ class Login extends Component {
         var form = document.forms.loginForm;
         var formData = new FormData(form);
 
-        fetch('api/v1/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                session: {
-                    email: formData.get('email'),
-                    password: formData.get('password'),
-                } 
-            })
+        axios.post('api/v1/user_token', {
+            auth: {
+                email: formData.get('email'),
+                password: formData.get('password')
+            }
         })
         .then(response => {
             // success
             if(response.status === 201){
-                this.props.history.push("/");
+                localStorage.setItem("jwt", response.data.jwt)
+                this.props.history.push("/home");
             }    
             else if(response.status === 204){
                 console.log("Error");
+                this.props.history.push("/home");
             }   
         });
         
