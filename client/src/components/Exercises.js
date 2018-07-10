@@ -31,7 +31,7 @@ class WorkoutRows extends React.Component {
         for(let i = 0; i < this.props.numRows; i++){
             grid.push(                
                 <div key={i} className="row justify-content-center">
-                    <div className="col-lg-2 table"><input className="exercise"onChange={(event) => this.props.handleChange("exercise",i,event)} 
+                    <div className="col-lg-2 table"><input className="exercise"onChange={(event) => this.props.handleChange("name",i,event)} 
                                                             type="text" name="exercise" value={this.props.preRows[i].exercise}/> 
                     </div>
 
@@ -73,7 +73,7 @@ export class WorkoutBox extends React.Component {
         super(props);
         this.state = {
             exerciseRows: [{
-                exercise: "",
+                name: "",
                 sets: 0,
                 reps: 0,
                 weight: 0,
@@ -108,7 +108,7 @@ export class WorkoutBox extends React.Component {
         else{
             this.setState({ 
                 exerciseRows: exerciseRows.concat([{
-                    exercise: "",
+                    name: "",
                     sets: 0,
                     reps: 0,
                     weight: 0,
@@ -133,22 +133,16 @@ export class WorkoutBox extends React.Component {
         // send the rows to api 
         // PLACEHOLDER
         var config = {
-            headers: {}
-        };
-        config['headers']['Authorization'] = 'Bearer ' + localStorage.getItem("jwt");
-        axios.get('/api/v1/save', config)
-        .then(response => console.log(response));
-        // i guess the idea is that you get the user and then you just do a post request since you have the user verified
-
-        /*fetch('/api/v1/save', {
-            method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                exercise: this.state.exerciseRows
-            })
-        });*/
+                Authorization: 'Bearer ' + localStorage.getItem("jwt")
+            },            
+        };
+        var data = {
+            exercise: this.state.exerciseRows
+        }
+        axios.post('/api/v1/create_exercise',data,config)
+        .then(response => console.log(response));
+
     }
     render(){
         return (

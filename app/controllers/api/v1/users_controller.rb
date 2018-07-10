@@ -26,15 +26,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def save
-    puts "SOMETHING PLS"
-    puts current_user
+
     #@user = User.find(session[:user_id])
-    puts "this is the session?"
-    puts "hello"
     #respond_with @user
     render json: current_user.as_json
   end
-
+  
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)    

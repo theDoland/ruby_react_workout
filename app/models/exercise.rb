@@ -6,8 +6,8 @@ class Exercise < ApplicationRecord
     #serialize :reps
     #serialize :weight
     
-    #validates(:name, presence: true)
-    #validates(:sets, presence: true)
-    #validates(:reps, presence: true)
-    #validates(:weight, presence: true)
+    validates(:name, presence: true)
+    validates(:sets, presence: true)
+    validates(:reps, presence: true)
+    validates(:weight, presence: true)
 end

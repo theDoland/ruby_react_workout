@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Knock::Engine => '/knock'
   # need namespace to do renaming below
   namespace :api do
     namespace :v1 do
@@ -12,5 +13,5 @@ Rails.application.routes.draw do
   #patch ?
   get '/api/v1/save', to: 'api/v1/users#save'
   post '/api/v1/user_token', to: 'user_token#create'
-
+  post '/api/v1/create_exercise', to: 'api/v1/exercises#create'
 end
