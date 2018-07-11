@@ -59,6 +59,7 @@ class Api::V1::ExercisesController < Api::V1::BaseController
 
     def index
         @user = current_user
+        #@exercises = @user.exercises.where()
         render json: @user.exercises, status: :ok
     end
     private
