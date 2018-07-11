@@ -7,11 +7,10 @@ Rails.application.routes.draw do
       #post 'signup' => 'sessions#create' pretty sure i can refactor to this
     end
   end
-  # rename api/v1/users to /signup
   post '/api/v1/signup', to: 'api/v1/users#create'
   post '/api/v1/login', to: 'api/v1/sessions#create'
-  #patch ?
-  get '/api/v1/save', to: 'api/v1/users#save'
   post '/api/v1/user_token', to: 'user_token#create'
   post '/api/v1/create_exercise', to: 'api/v1/exercises#create'
+  patch '/api/v1/update_exercise', to: 'api/v1/exercises#update'
+  get 'api/v1/index', to: 'api/v1/exercises#index'
 end

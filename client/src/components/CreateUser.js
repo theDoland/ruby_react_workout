@@ -26,7 +26,19 @@ class CreateUser extends Component {
             // success
             if(response.status === 201){
                 // need to set JWT after 
-                this.props.history.push("/home");
+                // initialize the first exercise (so the rest will be patch?)
+                var config = {
+                    auth: {
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    }
+                }
+
+                axios.post('api/v1/user_token', config)
+                .then(response => {
+                    localStorage.setItem("jwt", response.data.jwt);
+                    this.props.history.push("/home")
+                })
             }    
             else if(response.status === 204){
                 // print error message (flash) on the screen

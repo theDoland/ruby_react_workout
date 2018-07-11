@@ -13,7 +13,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     # check if valid
     if @user.save
       # send react a message that it worked and save the user in a session
-      #respond_with(@user)
       render json: @user, status: :created
     else
       # send react a message that it didn't work
@@ -25,13 +24,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     respond_with User.all
   end
 
-  def save
-
-    #@user = User.find(session[:user_id])
-    #respond_with @user
-    render json: current_user.as_json
-  end
-  
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)    
