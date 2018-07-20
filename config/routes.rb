@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     end
   end
   post '/api/v1/signup', to: 'api/v1/users#create'
-  post '/api/v1/login', to: 'api/v1/sessions#create'
   post '/api/v1/user_token', to: 'user_token#create'
   post '/api/v1/create_exercise', to: 'api/v1/exercises#create'
   patch '/api/v1/update_exercise', to: 'api/v1/exercises#update'
   get 'api/v1/index', to: 'api/v1/exercises#index'
+  delete '/api/v1/delete_user', to: 'api/v1/users#destroy'
+  get 'api/v1/user', to: 'api/v1/users#user'
 end

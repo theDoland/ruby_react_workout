@@ -1,0 +1,16 @@
+.CreateUser {
+    color: white;
+    max-width: 300px;
+    margin: auto;
+}
+
+.Create-Input {
+    text-align: left !important;
+}
+#createForm {
+    text-align: center;
+}
+
+.Signup-Form {
+    padding-bottom: 10px;
+}

@@ -1,5 +1,4 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  #before_action :set_user, only: [:save]
   before_action :authenticate_user, :except => [:new,:create]
 
   def new
@@ -16,7 +15,24 @@ class Api::V1::UsersController < Api::V1::BaseController
       render json: @user, status: :created
     else
       # send react a message that it didn't work
-      puts "fail"
+      render json: @user, status: :unprocessable_entity
+    end
+  end
+
+  def user
+    @user = User.find_by(email: params[:email])
+    
+    if @user
+      render json: @user, status: :ok
+    else
+      render json: "error", status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user = User.find_by(email: params[:email])
+    if @user
+      @user.destroy
     end
   end
 
@@ -27,13 +43,5 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)    
-    end
-
-    def exercise_params
-      params.require(:exercise).permit(:name, :sets, :reps, :weight)
-    end
-
-    def set_user
-      @user = User.find(params[:id])
     end
 end

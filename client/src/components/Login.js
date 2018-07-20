@@ -22,7 +22,8 @@ class Login extends Component {
         .then(response => {
             // success
             if(response.status === 201){
-                localStorage.setItem("jwt", response.data.jwt)
+                localStorage.setItem("jwt", response.data.jwt);
+                localStorage.setItem("email", formData.get('email'));
                 this.props.history.push("/home");
             }    
             else if(response.status === 204){
@@ -32,13 +33,16 @@ class Login extends Component {
         });
         
     }
+    componentDidMount() {
+        document.title = "Log in | My Gym Goals";
+    }
     render() {
         return(
             <div>
                 <h1>Log in</h1>
                 <form id="loginForm" onSubmit={this.getUser}>
-                    Email: <input type="text" name="email"/> <br/>
-                    Password: <input type="password" name="password"/><br/>
+                    Email: <input type="email" name="email" required/> <br/>
+                    Password: <input type="password" name="password" required/><br/>
                     <input type="submit" value="Log in"/>
                 </form>
                 <Link to="/sign_up">New User?</Link>

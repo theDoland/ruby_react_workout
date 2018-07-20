@@ -1,9 +1,7 @@
 /* TODO: Center the entire thing (it's shifted on one side it looks like) */
 body {
-    background-color:  #111111; 
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 16px;
-    color:  #b48608;
 }
 
 .rowNames {
@@ -39,4 +37,9 @@ body {
 
 .bordered {
     border: 1px solid black;
+}
+
+.active {
+    background-color: #b48608;
+    color: wheat;
 }

@@ -19,16 +19,16 @@ class Api::V1::ExercisesController < Api::V1::BaseController
 
     def update
         @user = current_user
-
+        @exerciseDay = @user.exercises.where(:dayofweek => params[:day]) #modify only the current days rows
         # go through each exercise and delete the unused exercises
-        length = @user.exercises.size - params[:exercise].size
-        itr = @user.exercises.size - 1
+        length = @exerciseDay.size - params[:exercise].size
+        itr = @exerciseDay.size - 1
         currCount = 0
 
         # means we are adding rows
         if length < 0
             while currCount < length.abs
-                @exercises = Exercise.new(name: "placeholder", reps: 0, sets: 0, weight: 0)
+                @exercises = Exercise.new(name: "placeholder", reps: 0, sets: 0, weight: 0, dayofweek: params[:day])
                 @exercises.user = @user
                 currCount = currCount + 1
                 @exercises.save
@@ -37,7 +37,7 @@ class Api::V1::ExercisesController < Api::V1::BaseController
         # otherwise, delete rows
         else
             while currCount < length do
-                @user.exercises[itr].destroy
+                @exerciseDay[itr].destroy
                 itr = itr - 1
                 currCount = currCount + 1
             end
@@ -45,9 +45,11 @@ class Api::V1::ExercisesController < Api::V1::BaseController
 
         # reinstatiate the iterator to start at the beginning
         itr = 0
+        @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
         params[:exercise].each do |exercise|
             # update each exercise
-            if !@user.exercises[itr].update(exercise_params(exercise))
+            puts exercise
+            if !@exerciseDay[itr].update(exercise_params(exercise))
                 render json: @user.errors, status: :unprocessable_entity
             end
             itr = itr + 1
@@ -59,11 +61,12 @@ class Api::V1::ExercisesController < Api::V1::BaseController
 
     def index
         @user = current_user
-        #@exercises = @user.exercises.where()
-        render json: @user.exercises, status: :ok
+        # get the exercises for the current day
+        @exercises = @user.exercises.where(:dayofweek => params[:day])
+        render json: @exercises, status: :ok
     end
     private
         def exercise_params(exercise)
-            exercise.permit(:name, :reps, :sets, :weight)
+            exercise.permit(:name, :reps, :sets, :weight, :dayofweek)
         end
 end
