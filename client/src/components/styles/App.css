@@ -1,10 +1,16 @@
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
   font-family: Georgia, 'Times New Roman', Times, serif;
-
+  height: 100%;
+  overflow: auto;
 }
 .App {
   height: 100vh; /* viewport height */
-  background-image: url("../images/victor-freitas-572863-unsplash.jpg");
+  background-image: url("../../images/victor-freitas-572863-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 35% 35%;
@@ -13,27 +19,17 @@ body {
 }
 
 .App-layer {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
 
-.App-Box {
-  padding: 30px 30px;
-  color: black;
-  margin: 0 20px;
-  border-radius: 25px;
-}
-
 .App-Top {
   color: white;
   margin: auto;
-}
-
-.App-bottom {
-  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .App-Center {
@@ -48,15 +44,6 @@ body {
   color: black;
 }
 
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  text-align: center;
-}
-
 .App-login {
   display: flex;
   flex-direction: column;
@@ -64,13 +51,13 @@ body {
 }
 
 .App-login-button {
-  background-color: Transparent !important;
-  border: 1px solid gainsboro !important;
+  background-color: rgb(111, 223, 0) !important;
+  border: none !important;
 
 }
 
 #login:hover {
-  background-color: rgb(220, 220, 220, .3) !important;
+  background-color: rgb(95, 190, 0) !important;
 
 }
 

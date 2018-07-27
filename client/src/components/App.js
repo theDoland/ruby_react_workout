@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CreateUser from './CreateUser';
 import axios from 'axios';
+import Title from './Title';
+import Footer from './Footer';
 
 class App extends Component {
   constructor(props){
@@ -72,26 +74,16 @@ class App extends Component {
         <div className="App-layer">
           <div className="jumbotron-fluid">
             <div className="container-fluid App-Top">
-              <div className="row">
-                <div className="col-sm-10">
-                  <h1 align="left"> <strong>My Gym Goals: A minimalist workout tracker</strong> </h1> <br/>
-                </div>
-                <div className="col-sm-2 App-login">
-                  <input type="button" id="login" className="btn btn-primary btn-lg float-right App-login-button" onClick={() => this.onClick("/log_in")} value="Log in"/>
-                </div>
-              </div>
+              <Title onClick={this.onClick} titleLink="/log_in" titleName="Log in"/>
             </div>
           </div>
           <br/>
-          <div className="jumbotron-fluid App-bottom">
+          <div className="jumbotron-fluid">
             <div className="container-fluid" id="App-CreateUser">
               <CreateUser onSubmit={this.submitForm}/>
             </div>
           </div>
-          <div className="footer">
-              <small className="footerCred1"> Website by Donald Nguyen &</small> 
-              <small className="footerCred2"> Photo by Victor Freitas on Unsplash </small>
-          </div>
+          <Footer />
         </div>
       </div>
     );

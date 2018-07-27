@@ -1,0 +1,91 @@
+/* TODO: Center the entire thing (it's shifted on one side it looks like) */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+}
+
+.Exercise {
+    height: 100vh; /* viewport height */
+    background-image: url("../../images/weather.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 35% 35%;
+    min-height: 100%;
+    color: white;
+
+}
+
+.Exercise-top-button{
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+}
+
+.Exercise-tab {
+    overflow: hidden;
+    
+    margin: 0 -15px;
+}
+
+.Exercise-tab-title {
+    background-color: rgb(83, 152, 190, .8)
+}
+
+.Exercise-tab button {
+    background-color:  rgb(83, 152, 190, .1);
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.Exercise-title {
+    font-size: 3.5vw;
+}
+
+.Exercise-save-button {
+    position: relative;
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+.rowNames {
+    border-bottom: 2px solid black;
+    margin-bottom: 10px;
+    padding: 0;
+    text-align: center;
+    font-size: 24px;
+}
+
+.table {
+    padding: 0;
+    
+}
+
+.exercise {
+    width: 230px;
+}
+
+.setAndRep {
+    width: 80px;
+}
+
+.weight {
+    width: 180px;
+}
+
+.addRow {
+    width: 80px;
+
+}
+
+.Exercise-container {
+    background-color:  	 rgb(83, 71, 87, .3);
+}
+
+.active {
+    background-color: #534757 !important;
+}

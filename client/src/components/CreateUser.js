@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./CreateUser.css";
+import "./styles/CreateUser.css";
 
 class CreateUser extends Component {
 

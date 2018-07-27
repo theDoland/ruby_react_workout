@@ -1,0 +1,33 @@
+.Login-Div {
+    height: 100vh; /* viewport height */
+    background-image: url("../../images/bruno-nascimento-149663-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 35% 35%;
+    min-height: 100%;
+    color: white;
+}
+
+.Login-Layer {
+    background-color: rgba(0, 0, 0, 0.2);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.Login-title {
+    padding-bottom: 10px;
+}
+
+.Login-btnsize {
+    width: 208px;
+}
+
+#Login-User {
+    max-width: 400px;
+    background-color: rgb(220, 220, 220, .3);
+    padding: 15px 0px 35px 0px;
+    box-shadow: 4px 4px 8px 4px rgba(247, 247, 247, 0.2), 4px 6px 18px 4px rgba(231, 231, 231, 0.19); /* taken from w3 school */
+    border-radius: 10px;
+}
