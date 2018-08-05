@@ -17,8 +17,7 @@ class Api::V1::ExercisesController < Api::V1::BaseController
         render json: @exercises, status: :created
     end
 
-    # exercise: [name, dayofweek, srw: [set: rep: weight:]]
-    # params[:exercise][index][:srw](sets, reps, weight)
+    # needs refactoring!!!
     def update
         @user = current_user
         # modify only the current days rows
@@ -87,8 +86,9 @@ class Api::V1::ExercisesController < Api::V1::BaseController
                 # reset iterator and update in the sets reps and weight
                 srwcount = 0
                 exLen = exercise[:srw].size - 1
+                # somewhat unsure of this ***
 
-                while srwcount < exLen
+                while srwcount <= exLen
                     if !@exerciseDay[itr].sets_reps_weights[srwcount].update(sets: exercise[:srw][srwcount][:sets], reps: exercise[:srw][srwcount][:reps], weight: exercise[:srw][srwcount][:weight])
                         render json: @user.errors, status: :unprocessable_entity
                         return

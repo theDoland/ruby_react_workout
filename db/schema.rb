@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_23_234328) do
+ActiveRecord::Schema.define(version: 2018_07_23_234223) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "exercises", force: :cascade do |t|
     t.string "name"
@@ -18,7 +21,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_234328) do
     t.datetime "updated_at", null: false
     t.string "dayofweek"
     t.integer "userId"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_exercises_on_user_id"
   end
 
@@ -41,4 +44,5 @@ ActiveRecord::Schema.define(version: 2018_07_23_234328) do
     t.index ["auth_token"], name: "index_users_on_auth_token"
   end
 
+  add_foreign_key "exercises", "users"
 end
