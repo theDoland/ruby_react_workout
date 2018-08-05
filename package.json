@@ -1,0 +1,29 @@
+{
+  "name": "react-rails-workout",
+  "engines": {
+    "node": "6.3.1"
+  },
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client build!'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theDoland/ruby_react_workout.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theDoland/ruby_react_workout/issues"
+  },
+  "homepage": "https://github.com/theDoland/ruby_react_workout#readme"
+}
