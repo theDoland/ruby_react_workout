@@ -30,7 +30,7 @@ class App extends Component {
     var formData = new FormData(form);
 
     // post request to rails database
-    axios.post('api/v1/signup', {
+    axios.post('/api/v1/signup', {
         user: {
             name: formData.get('name'),
             email: formData.get('email'),
@@ -50,7 +50,7 @@ class App extends Component {
                 }
             }
 
-            axios.post('api/v1/user_token', config)
+            axios.post('/api/v1/user_token', config)
             .then(response => {
                 localStorage.setItem("jwt", response.data.jwt);
                 localStorage.setItem("email", formData.get('email'));

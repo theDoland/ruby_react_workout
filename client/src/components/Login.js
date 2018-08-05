@@ -24,7 +24,7 @@ class Login extends Component {
         var form = document.forms.loginForm;
         var formData = new FormData(form);
 
-        axios.post('api/v1/user_token', {
+        axios.post('/api/v1/user_token', {
             auth: {
                 email: formData.get('email'),
                 password: formData.get('password')
