@@ -22,10 +22,11 @@ class Settings extends React.Component {
                 }
             })
             .then(response => {
-                this.props.history.push("/");
                 localStorage.removeItem("jwt");
                 localStorage.removeItem("email");
                 localStorage.removeItem("name");
+                this.props.history.push("/");
+
             });
         }
     }

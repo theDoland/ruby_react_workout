@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import "./styles/Login.css";
-import Title from './Title';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Footer from './Footer';
 // TODO: REMEMBER ME BOX --> change local storage
@@ -43,8 +42,6 @@ class Login extends Component {
             this.setState({
                 hasError: true,
             });
-            console.log(error);
-            
         });
         
     }

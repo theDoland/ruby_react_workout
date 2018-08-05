@@ -8,7 +8,6 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faWrench, faDumbbell, faBars } from '@fortawesome/free-solid-svg-icons'
 import CreateUser from './CreateUser';
 import axios from 'axios';
-import Title from './Title';
 import Footer from './Footer';
 
 library.add(fab, faWrench, faDumbbell, faBars);
@@ -60,7 +59,6 @@ class App extends Component {
         }    
         else if(response.status === 204){
             // print error message (flash) on the screen
-            console.log("Error");
         }
     })
     .catch(error => {

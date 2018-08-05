@@ -3,7 +3,6 @@ import "./styles/Exercises.css";
 import axios from 'axios';
 import DaysOfWeek from './DaysOfWeek.js'
 import WorkoutRows from './WorkoutRows.js'
-import Footer from './Footer.js';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 
@@ -42,7 +41,6 @@ export class WorkoutBox extends React.Component {
             }
             saveField[saveIndex].srw[varIndex][field] = parseInt(val, 10);
         }
-        console.log(saveField);
         this.setState({
             exerciseRows: saveField,
         });
@@ -211,13 +209,11 @@ export class WorkoutBox extends React.Component {
         };
         axios.get('/api/v1/index', config)
         .then(response => {
-            console.log(response);
             if(response.status === 401){
                 this.props.history.push('/');
             }
             if(response.data.length !== 0){
                 // parse the response data
-                console.log(response.data);
                 let recRows = [];
                 for(let i = 0; i < response.data.length; i++){
                     recRows.push(response.data[i][0]);
