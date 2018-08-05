@@ -9,6 +9,6 @@ class CreateSetsRepsWeights < ActiveRecord::Migration[5.2]
     end
     remove_column :exercises, :sets 
     remove_column :exercises, :reps
-    remove_column :exercises, :weights
+    remove_column :exercises, :weight
   end
 end
