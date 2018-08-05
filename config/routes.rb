@@ -14,4 +14,8 @@ Rails.application.routes.draw do
   get 'api/v1/index', to: 'api/v1/exercises#index'
   delete '/api/v1/delete_user', to: 'api/v1/users#destroy'
   get 'api/v1/user', to: 'api/v1/users#user'
+
+  get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end
