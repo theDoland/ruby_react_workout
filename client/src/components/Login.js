@@ -23,10 +23,6 @@ class Login extends Component {
         event.preventDefault();
         var form = document.forms.loginForm;
         var formData = new FormData(form);
-        // test get
-        axios.get('/api/v1/index')
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
 
         axios.post('/api/v1/user_token', {
             auth: {
