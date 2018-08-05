@@ -42,7 +42,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def index
-    respond_with User.all
+    render json: User.all, status: :ok
   end
 
   private

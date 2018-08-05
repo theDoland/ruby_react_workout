@@ -24,11 +24,7 @@ class Login extends Component {
         var form = document.forms.loginForm;
         var formData = new FormData(form);
         // test get
-        axios.get('/https://workout-rails-api.herokuapp.com/api/v1/user', {
-          params: {
-            email: "dolnguyen@ucdavis.edu",          
-          }        
-        })
+        axios.get('/api/v1/index')
         .then(response => console.log(response));
 
         axios.post('/api/v1/user_token', {
