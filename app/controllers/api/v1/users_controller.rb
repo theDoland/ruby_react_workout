@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :authenticate_user, :except => [:new,:create]
+  before_action :authenticate_user, :except => [:new,:create, :user]
 
   def new
     # probably unnecessary
@@ -8,6 +8,11 @@ class Api::V1::UsersController < Api::V1::BaseController
   
   # create a user  
   def create
+    if(User.find_by(email: params[:user][:email]))
+      render json: "Already Exists", status: :unprocessable_entity
+      return
+    end
+
     @user = User.new(user_params)
     # check if valid
     if @user.save

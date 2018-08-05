@@ -21,7 +21,6 @@ class Api::V1::ExercisesController < Api::V1::BaseController
     # params[:exercise][index][:srw](sets, reps, weight)
     def update
         @user = current_user
-
         # modify only the current days rows
         @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
         
@@ -63,9 +62,10 @@ class Api::V1::ExercisesController < Api::V1::BaseController
                 # loop through the sets, reps and weight
                 srwcount = 0
                 
+                puts exercise[:srw].size - @exerciseDay[itr].sets_reps_weights.size 
                 # it means we have to add
                 if exercise[:srw].size - @exerciseDay[itr].sets_reps_weights.size >= 0
-                    while srwcount < exercise[:srw].size
+                    while srwcount < exercise[:srw].size - @exerciseDay[itr].sets_reps_weights.size
                         @sets_reps_weights = SetsRepsWeight.new(sets: 0, reps: 0, weight: 0)
                         @sets_reps_weights.exercise = @exerciseDay[itr]
                         @sets_reps_weights.save
@@ -110,6 +110,7 @@ class Api::V1::ExercisesController < Api::V1::BaseController
         @array = []
         
         @exercises = @user.exercises.where(:dayofweek => params[:day])
+
         array_index = 0
         @exercises.each do |exercise|
             @array[array_index] = []

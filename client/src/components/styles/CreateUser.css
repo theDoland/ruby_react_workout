@@ -1,16 +1,31 @@
 .CreateUser {
     color: white;
-    max-width: 300px;
+    max-width: 400px;
     margin: auto;
 }
 
 .Create-Input {
     text-align: left !important;
 }
-#createForm {
-    text-align: center;
+
+.Create-title {
+    margin-top: -6px;
+    color: white;
+    
+    margin: 0 auto;
+    
 }
 
-.Signup-Form {
-    padding-bottom: 10px;
+.btn-create {
+    background-color:  rgb(255, 143, 78);
+    color: white;
+    box-shadow: none;
+}
+
+.btn-create:hover {
+    background-color: rgb(233, 128, 67);
+}
+#createForm {
+    text-align: center;
+    padding-top: 15px;
 }

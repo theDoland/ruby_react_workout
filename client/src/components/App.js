@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import './styles/App.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faWrench, faDumbbell, faBars } from '@fortawesome/free-solid-svg-icons'
 import CreateUser from './CreateUser';
 import axios from 'axios';
 import Title from './Title';
 import Footer from './Footer';
 
+library.add(fab, faWrench, faDumbbell, faBars);
+
 class App extends Component {
   constructor(props){
     super(props);
-
+    this.state = {
+      hasErrors: false,
+    };
     this.onClick = this.onClick.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
@@ -19,6 +28,7 @@ class App extends Component {
     event.preventDefault();
     var form = document.forms.createForm;
     var formData = new FormData(form);
+
     // post request to rails database
     axios.post('api/v1/signup', {
         user: {
@@ -52,6 +62,11 @@ class App extends Component {
             // print error message (flash) on the screen
             console.log("Error");
         }
+    })
+    .catch(error => {
+      this.setState({
+        hasErrors: true
+      });
     });
 
 }
@@ -70,20 +85,27 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <div className="App-layer">
-          <div className="jumbotron-fluid">
-            <div className="container-fluid App-Top">
-              <Title onClick={this.onClick} titleLink="/log_in" titleName="Log in"/>
+      <div>
+        <div className="App">
+            <div className="jumbotron-fluid">
+                <nav className="navbar navbar-expand-lg navbar-dark App-bg-custom">
+                    <a className="navbar-brand"><FontAwesomeIcon className="dumbbell" icon="dumbbell"/>My Gym Goals</a>
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <input type="button" className="btn btn-lg App-Login" onClick={() => this.onClick("/log_in")} value="Log in"/>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-          </div>
-          <br/>
-          <div className="jumbotron-fluid">
-            <div className="container-fluid" id="App-CreateUser">
-              <CreateUser onSubmit={this.submitForm}/>
+            <br/>
+            <div className="container" id="App-CreateUser">
+              <CreateUser hasError={this.state.hasErrors} onSubmit={this.submitForm}/>
             </div>
+
+          <div className="container">
+            <Footer />
           </div>
-          <Footer />
+
         </div>
       </div>
     );

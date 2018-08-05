@@ -1,0 +1,65 @@
+.WorkoutRow-Center {
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.WorkoutRow-Srw {
+    display: flex;
+    padding-bottom: 2px;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+
+}
+
+.WorkoutRow-Weight {
+    width: 96px;
+}
+
+.WorkoutRow-Button {
+    padding-bottom: 2px;
+}
+
+.WorkoutRow-Name {
+    width: 100%;
+    
+}
+
+.WorkoutRow-SrwDiv {
+    width: 100%;
+    margin-left: -20px;
+}
+
+.WorkoutRow-Delete {
+    width: 80%;
+}
+
+.WorkoutRow-addRow {
+    padding-top: 15px;
+}
+
+.wrench {
+    background-color: transparent;
+    border: none;
+    color: rgb(114, 114, 114);
+}
+
+.WorkoutRow-addRow {
+    background-color: #F67131;
+    color: whitesmoke;
+    width: 25%;
+    padding: 0;
+    height: 38px;
+}
+
+.WorkoutRow-bottom {
+    padding-top: 10px;
+}
+
+.dropdown-item:focus, .dropdown-item-active {
+    -webkit-box-shadow: none;
+    outline: none !important;
+    box-shadow: none;
+}

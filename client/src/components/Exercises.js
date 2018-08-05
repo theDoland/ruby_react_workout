@@ -4,9 +4,11 @@ import axios from 'axios';
 import DaysOfWeek from './DaysOfWeek.js'
 import WorkoutRows from './WorkoutRows.js'
 import Footer from './Footer.js';
-// on double enter, add a new row
-// TODO: Weight will be replaced by set(X)
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
+
+// TODO: better menu bar placement (rework the menu)
+// TODO: LINK COLOR WHEN HOLD DOWN DROPDOWN LINKS
 export class WorkoutBox extends React.Component {
     constructor(props){
         super(props);
@@ -29,15 +31,18 @@ export class WorkoutBox extends React.Component {
     handleChange(field,saveIndex,varIndex,event){
         // when text or numbers inputed, change values in state variable
         var saveField = this.state.exerciseRows.slice();
-
+        var val = event.target.value;
         if(field === "name"){
-            saveField[saveIndex][field] = event.target.value;
+            saveField[saveIndex][field] = val;
         }
         else {
-            // it's a srw field
-            saveField[saveIndex].srw[varIndex][field] = event.target.value;
+            // it's a srw field, prevent non-alpha
+            if(val.charAt(val.length) > 31 && (val.charAt(val.length) < 48 || val.charAt(val.length) > 57)){
+                return;
+            }
+            saveField[saveIndex].srw[varIndex][field] = parseInt(val, 10);
         }
-
+        console.log(saveField);
         this.setState({
             exerciseRows: saveField,
         });
@@ -133,7 +138,7 @@ export class WorkoutBox extends React.Component {
         this.props.history.push("/");
     }
     activeDay(dayIndex){
-        return this.state.currentDay === dayIndex ? "active" : "";
+        return this.state.currentDay === dayIndex ? "active dropdown-item" : "dropdown-item";
     }
     changeDay(day){
         // cache current day
@@ -206,8 +211,13 @@ export class WorkoutBox extends React.Component {
         };
         axios.get('/api/v1/index', config)
         .then(response => {
+            console.log(response);
+            if(response.status === 401){
+                this.props.history.push('/');
+            }
             if(response.data.length !== 0){
                 // parse the response data
+                console.log(response.data);
                 let recRows = [];
                 for(let i = 0; i < response.data.length; i++){
                     recRows.push(response.data[i][0]);
@@ -236,42 +246,54 @@ export class WorkoutBox extends React.Component {
     }
     render(){
         return (
-            <div className="Exercise">
-                <div className="Exercise-layer">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-sm-10">
-                                <h1 className="Exercise-title" align="left"> <strong>My Gym Goals: A minimalist workout tracker</strong> </h1>
-                            </div>
-                            <div className="col-sm-2">
-                                <input type="button" className="btn btn-primary Exercise-top-button" onClick={this.getProfile.bind(this)} value="Profile"/>
-                                <input type="button" className="btn btn-warning Exercise-top-button" onClick={this.logoutUser.bind(this)} value="Logout"/>
-                            </div>
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-light bg-custom">
+                    <a className="navbar-brand title-color"><FontAwesomeIcon className="dumbbell" icon="dumbbell"/>My Gym Goals</a>
+                    <div className="ml-auto hiddeniflarge dropdown show">
+                        <button className="btn dropdown-toggle" type="button" id="profileLog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <FontAwesomeIcon icon="bars" />
+                        </button>
+                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="profileLog">
+                            <a className="dropdown-item" onClick={this.getProfile.bind(this)}>Profile</a>
+                            <a className="dropdown-item" onClick={this.logoutUser.bind(this)}>Log out</a>                        
                         </div>
                     </div>
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item hiddenifsmall">
+                            <input type="button" className="btn btn-sm Exercise-top-button" onClick={this.getProfile.bind(this)} value="Profile"/>
+                        </li>
+                        <li className="nav-item hiddenifsmall">
+                            <input type="button" className="btn btn-sm Exercise-top-button" onClick={this.logoutUser.bind(this)} value="Logout"/>
+                        </li>
+                        
+                    </ul>
 
-                    <br/>
+                </nav>
+                <div className="Exercise">
+                    <div className="Exercise-layer">
 
-                    <div className="container Exercise-container">
-                        <div className="row Exercise-tab-title">
-                            <div className="col-sm-11">
-                                <div className="Exercise-tab">
-                                    <DaysOfWeek onClick={this.changeDay.bind(this)} activeDay={this.activeDay.bind(this)}/>
+                        <br/>
+
+                        <div className="container Exercise-container">
+                            <div className="row Exercise-tab Exercise-tab-title">
+                                <div className="col-7 col-sm-7 col-md-7 col-lg-7 Exercise-tab-btn btn-group" role="group">
+                                    <DaysOfWeek onClick={this.changeDay.bind(this)} activeDay={this.activeDay.bind(this)} currDay={this.state.currentDay}/>
+                                </div>
+
+                                
+                                <div className="col-5 col-sm-5 col-md-5 col-lg-5">
+                                    <input className="btn float-right Exercise-save-button" type="submit" value="Save" onClick={this.saveRows.bind(this)}/>
                                 </div>
                             </div>
-                            <div className="col-sm-1">
-                                <input className="btn btn-success float-right Exercise-save-button" type="submit" value="Save Workouts" onClick={this.saveRows.bind(this)}/>
-                            </div>
+                            <WorkoutRows removeRow={this.removeRow.bind(this)} 
+                            addNewRow={this.addNewRow.bind(this)}
+                            handleChange={this.handleChange.bind(this)}
+                            preRows={this.state.exerciseRows}
+                            addSRW={this.addSRW.bind(this)}
+                            delSRW={this.delSRW.bind(this)}/>
                         </div>
-                        <WorkoutRows removeRow={this.removeRow.bind(this)} 
-                        addNewRow={this.addNewRow.bind(this)}
-                        handleChange={this.handleChange.bind(this)}
-                        preRows={this.state.exerciseRows}
-                        addSRW={this.addSRW.bind(this)}
-                        delSRW={this.delSRW.bind(this)}/>
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }

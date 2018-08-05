@@ -2,46 +2,51 @@
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 16px;
+    overflow-x: hidden;
+    width: 100%;
+    background-color: #FBE8A6;
+    
 }
 
 .Exercise {
-    height: 100vh; /* viewport height */
-    background-image: url("../../images/weather.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 35% 35%;
+    height: 100%; /* viewport height */
     min-height: 100%;
     color: white;
+    overflow: visible;
 
 }
 
 .Exercise-top-button{
-    margin-top: 10px;
     margin-left: 10px;
     color: white;
+    background-color: #ff8f4e;
+    box-shadow: none;
+
 }
 
-.Exercise-tab {
-    overflow: hidden;
-    
-    margin: 0 -15px;
+.Exercise-top-button:hover{
+    background-color: rgb(233, 128, 67);
 }
 
 .Exercise-tab-title {
-    background-color: rgb(83, 152, 190, .8)
+    background-color: rgb(97, 97, 97);
 }
 
 .Exercise-tab button {
-    background-color:  rgb(83, 152, 190, .1);
+    background-color:  rgb(97, 97, 97);
     color: white;
-    float: left;
-    border: none;
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
+    
+    
 }
 
+.Exercise-tab-btn {
+    margin-left: -15px;
+}
+/* */
 .Exercise-title {
     font-size: 3.5vw;
 }
@@ -50,6 +55,13 @@ body {
     position: relative;
     transform: translateY(-50%);
     top: 50%;
+    margin-right: -12px;
+    background-color: #F67131;
+    color: white;
+}
+
+.Exercise-save-button:hover {
+    background-color: rgb(207, 95, 42);
 }
 
 .rowNames {
@@ -60,32 +72,71 @@ body {
     font-size: 24px;
 }
 
-.table {
-    padding: 0;
-    
-}
-
-.exercise {
-    width: 230px;
-}
-
-.setAndRep {
-    width: 80px;
-}
-
-.weight {
-    width: 180px;
-}
-
 .addRow {
     width: 80px;
 
 }
 
 .Exercise-container {
-    background-color:  	 rgb(83, 71, 87, .3);
+    background-color: whitesmoke;
+    
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.144), 0px 0px 2px 1px rgba(0, 0, 0, 0.19); /* taken from w3 school */
+
 }
 
 .active {
-    background-color: #534757 !important;
+    background-color: rgb(97, 97, 97) !important;
+    color: white !important;
+}
+
+.navbar {
+    padding-top: 7px;
+    color: white;
+    width: 100%;
+    margin-bottom: -24px;
+}
+
+.navbar-nav {    
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.custom-navbar-nav {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 366px){
+    .hiddenifsmall {
+        display: none;
+    }
+    .hiddeniflarge {
+        margin-right: -50px;
+    }
+}
+
+@media only screen and (min-width: 367px){
+    .hiddeniflarge {
+        display: none;
+    }
+}
+
+.dropdown-menu {
+    background-color: rgb(253, 253, 253);
+}
+
+.dropdown-toggle {
+    background-color: transparent;
+    color: #FCFDFD;
+}
+
+.bg-custom {
+    background-color:  transparent;
+    color: #FCFDFD;
+}
+
+.title-color {
+    color: #FCFDFD;
 }

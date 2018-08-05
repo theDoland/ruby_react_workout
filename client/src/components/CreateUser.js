@@ -9,13 +9,14 @@ class CreateUser extends Component {
     render() {
         return (
             <div className="CreateUser">
-                <div className="row Signup-Form">
+                <div className="row Create-title">
                     <div className="col-sm-12">
                         <h1 align="center">Sign Up</h1>
                     </div>
                 </div>
                 
                 <form id="createForm" onSubmit={this.props.onSubmit}>
+                    {this.props.hasError ? <div id="errorLogin"><b className="errorText">Email already taken!</b></div> : <div></div>}
                     <div className="row">
                         <div className="col-sm-12">
                             <input type="text" name="name" placeholder="Name" required size="22"/>
@@ -42,7 +43,7 @@ class CreateUser extends Component {
                     <br/>
                     <div className="row">
                         <div className="col-sm-12">
-                            <input className="btn btn-primary btn-lg" type="submit" value="Create my account!"/><br/>
+                            <input className="btn btn-create btn-lg" type="submit" value="Create my account!"/><br/>
                         </div>
                     </div>
                 </form>                

@@ -2,12 +2,16 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import "./styles/Login.css";
 import Title from './Title';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Footer from './Footer';
 // TODO: REMEMBER ME BOX --> change local storage
 
 class Login extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            hasError: false,
+        };
         this.getUser = this.getUser.bind(this);
         this.onClick = this.onClick.bind(this);
     }
@@ -33,10 +37,14 @@ class Login extends Component {
                 localStorage.setItem("email", formData.get('email'));
                 this.props.history.push("/home");
             }    
-            else if(response.status === 204){
-                console.log("Error");
-                this.props.history.push("/home");
-            }   
+                
+        })
+        .catch(error => {
+            this.setState({
+                hasError: true,
+            });
+            console.log(error);
+            
         });
         
     }
@@ -45,27 +53,39 @@ class Login extends Component {
     }
     render() {
         return(
+        <div>
             <div className="Login-Div">
-                <div className="Login-Layer">
-                    <div className="container-fluid Login-title">
-                        <Title onClick={this.onClick} titleLink="/" titleName="Sign Up"/>
-                    </div>
-                    <br/>
-                    <div className="container-fluid" id="Login-User">
-                        <div className="row">
-                            <div className="col-sm-12 text-center Login-title">
-                                <h1>Log in</h1>
-                            </div>
+                <nav className="navbar navbar-expand-lg navbar-light Login-bg-custom">
+                    <a className="navbar-brand"><FontAwesomeIcon className="dumbbell" icon="dumbbell"/>My Gym Goals</a>
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <input type="button" className="btn btn-lg Exercise-top-button" onClick={() => this.onClick("/")} value="Sign up"/>
+                        </li>
+                    </ul>
+
+                </nav>
+                    
+                <br/>
+                <div className="container-fluid" id="Login-User">
+                    <div className="row">
+                        <div className="col-sm-12 text-center">
+                            <h1>Log in</h1>
                         </div>
-                        <form id="loginForm" className="text-center" onSubmit={this.getUser}>
-                            <input type="email" name="email" placeholder="Email" size="22" required/> <br/><br/>
-                            <input type="password" name="password" placeholder="Password" size="22" required/><br/><br/>
-                            <input type="submit" className="btn btn-primary btn-lg Login-btnsize" value="Log in"/>
-                        </form>
                     </div>
+                    <form id="loginForm" className="text-center" onSubmit={this.getUser}>
+                        {
+                            this.state.hasError ? <div id="errorLogin"><b className="errorText">Invalid Email/Password Combination</b></div> : <div></div>
+                        }
+                        <input type="email" name="email" placeholder="Email" size="22" required/> <br/><br/>
+                        <input type="password" name="password" placeholder="Password" size="22" required/><br/><br/>
+                        <input type="submit" className="btn btn-lg Login-btnsize" value="Log in"/>
+                    </form>
+                </div>
+                <div className="container">
                     <Footer />
                 </div>
             </div>
+        </div>
         )
     }
 }
