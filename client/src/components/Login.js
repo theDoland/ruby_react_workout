@@ -78,9 +78,9 @@ class Login extends Component {
                         <input type="submit" className="btn btn-lg Login-btnsize" value="Log in"/>
                     </form>
                 </div>
-                <div className="container">
+            </div>
+            <div className="container">
                     <Footer />
-                </div>
             </div>
         </div>
         )

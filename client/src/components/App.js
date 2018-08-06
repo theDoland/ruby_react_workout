@@ -100,10 +100,9 @@ class App extends Component {
               <CreateUser hasError={this.state.hasErrors} onSubmit={this.submitForm}/>
             </div>
 
-          <div className="container">
+        </div>
+        <div className="container">
             <Footer />
-          </div>
-
         </div>
       </div>
     );

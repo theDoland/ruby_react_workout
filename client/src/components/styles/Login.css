@@ -1,5 +1,5 @@
 .Login-Div {
-    height: 100vh; /* viewport height */
+    height: 100%; /* viewport height */
 
     min-height: 100%;
     color: white;
