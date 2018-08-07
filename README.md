@@ -1,24 +1,13 @@
-# README
+# My Gym Goals
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby 2.5.1
+* React 16.4.1
+* Built on Linux and hosted on Heroku!
+* Checkout the live website here: [mygymgoals.com]
+## How to start the server
 
-Things you may want to cover:
+* In the root directory, run the command: `rake start`
+* Remember to run `rake db:migrate` to migrate the database
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Test Suite
+* Learning currently in development
