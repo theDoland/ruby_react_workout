@@ -104,6 +104,9 @@ export class WorkoutBox extends React.Component {
         sessionStorage.setItem(this.state.currentDay, JSON.stringify(exRows));
     }
     saveRows(){
+        // place the current workouts into this shit (showing null since session won't have anything if null)
+         
+        document.getElementById("save-overlay").style.display = "flex";
         var config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem("jwt")
@@ -111,7 +114,7 @@ export class WorkoutBox extends React.Component {
         };
         
         let data = {
-            exercise: JSON.parse(sessionStorage.getItem(this.state.currentDay)),
+            exercise: this.state.exerciseRows,
             day: this.state.currentDay,
         }
         axios.patch('/api/v1/update_exercise', data, config)
@@ -122,7 +125,11 @@ export class WorkoutBox extends React.Component {
             else{
                 sessionStorage.setItem(this.state.currentDay, sessionStorage.getItem(this.state.currentDay))
             }
-        })    
+            document.getElementById("save-overlay").style.display = "none";
+        })
+        .catch(error => {
+            document.getElementById("save-overlay").style.display = "none";
+        })
         
     }
     getProfile() {
@@ -148,7 +155,7 @@ export class WorkoutBox extends React.Component {
         })
 
         // fetch the new day either in cache or server call
-        if(sessionStorage.getItem(day)){
+        if(sessionStorage.getItem(day) && sessionStorage.getItem(day) !== "null"){
             this.setState({
                 exerciseRows: JSON.parse(sessionStorage.getItem(day))
             })
@@ -197,6 +204,7 @@ export class WorkoutBox extends React.Component {
         }
     }
     componentDidMount() {
+        // TEST THE JWT AGAIN
         document.title = "Home | My Gym Goals";
         // set the exercises after component loads
         var config = {
@@ -239,10 +247,18 @@ export class WorkoutBox extends React.Component {
             }
 
         })
+        .catch(error => {
+            this.props.history.push('/');
+        })
     }
     render(){
         return (
             <div>
+                <div id="save-overlay">
+                    <div id="overlay-text"> Saving...</div>
+                    
+                    <div id="loaderid" className="loader"></div>
+                </div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-custom">
                     <a className="navbar-brand title-color"><FontAwesomeIcon className="dumbbell" icon="dumbbell"/>My Gym Goals</a>
                     <div className="ml-auto hiddeniflarge dropdown show">
@@ -261,7 +277,7 @@ export class WorkoutBox extends React.Component {
                         <li className="nav-item hiddenifsmall">
                             <input type="button" className="btn btn-sm Exercise-top-button" onClick={this.logoutUser.bind(this)} value="Logout"/>
                         </li>
-                        
+
                     </ul>
 
                 </nav>
@@ -276,9 +292,11 @@ export class WorkoutBox extends React.Component {
                                     <DaysOfWeek onClick={this.changeDay.bind(this)} activeDay={this.activeDay.bind(this)} currDay={this.state.currentDay}/>
                                 </div>
 
-                                
+
                                 <div className="col-5 col-sm-5 col-md-5 col-lg-5">
                                     <input className="btn float-right Exercise-save-button" type="submit" value="Save" onClick={this.saveRows.bind(this)}/>
+                                        
+
                                 </div>
                             </div>
                             <WorkoutRows removeRow={this.removeRow.bind(this)} 
@@ -289,7 +307,7 @@ export class WorkoutBox extends React.Component {
                             delSRW={this.delSRW.bind(this)}/>
                         </div>
                     </div>
-                </div>
+                </div>            
             </div>
         )
     }
