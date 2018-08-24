@@ -204,52 +204,60 @@ export class WorkoutBox extends React.Component {
         }
     }
     componentDidMount() {
-        // TEST THE JWT AGAIN
         document.title = "Home | My Gym Goals";
         // set the exercises after component loads
-        var config = {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("jwt")
-            },
-            params: {
-                day: this.state.currentDay
-            }
-        };
-        axios.get('/api/v1/index', config)
-        .then(response => {
-            if(response.status === 401){
-                this.props.history.push('/');
-            }
-            if(response.data.length !== 0){
-                // parse the response data
-                let recRows = [];
-                for(let i = 0; i < response.data.length; i++){
-                    recRows.push(response.data[i][0]);
+        if(sessionStorage.getItem(this.state.currentDay) && sessionStorage.getItem(this.state.currentDay) !== "null"){
+            this.setState({
+                exerciseRows: JSON.parse(sessionStorage.getItem(day))
+            })
+        }
+        else{
+            var config = {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem("jwt")
+                },
+                params: {
+                    day: this.state.currentDay
                 }
-                this.setState({
-                    exerciseRows: recRows,
-                })
-                sessionStorage.setItem(this.state.currentDay, JSON.stringify(recRows));
-            }
-            else{
-                this.setState({
-                    exerciseRows: [{
-                        name: "",
-                        srw: [{
-                            sets: 0,
-                            reps: 0,
-                            weight: 0,
-                        }],
-                        dayofweek: this.state.currentDay
-                    }]
-                })
-                sessionStorage.setItem(this.state.currentDay, JSON.stringify(this.state.exerciseRows));
-            }
+            };
+            axios.get('/api/v1/index', config)
+            .then(response => {
+                if(response.status === 401){
+                    this.props.history.push('/');
+                }
+                if(response.data.length !== 0){
+                    // parse the response data
+                    let recRows = [];
+                    for(let i = 0; i < response.data.length; i++){
+                        recRows.push(response.data[i][0]);
+                    }
+                    this.setState({
+                        exerciseRows: recRows,
+                    })
+                    sessionStorage.setItem(this.state.currentDay, JSON.stringify(recRows));
+                }
+                else{
+                    this.setState({
+                        exerciseRows: [{
+                            name: "",
+                            srw: [{
+                                sets: 0,
+                                reps: 0,
+                                weight: 0,
+                            }],
+                            dayofweek: this.state.currentDay
+                        }]
+                    })
+                    sessionStorage.setItem(this.state.currentDay, JSON.stringify(this.state.exerciseRows));
+                }
+    
+            })
+            .catch(error => {
+                this.props.history.push('/');
+            })
+        }
+        
 
-        })
-        .catch(error => {
-            this.props.history.push('/');
-        })
     }
     render(){
         return (
