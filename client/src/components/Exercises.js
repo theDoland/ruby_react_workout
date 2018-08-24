@@ -208,7 +208,7 @@ export class WorkoutBox extends React.Component {
         // set the exercises after component loads
         if(sessionStorage.getItem(this.state.currentDay) && sessionStorage.getItem(this.state.currentDay) !== "null"){
             this.setState({
-                exerciseRows: JSON.parse(sessionStorage.getItem(day))
+                exerciseRows: JSON.parse(sessionStorage.getItem(this.state.currentDay))
             })
         }
         else{
