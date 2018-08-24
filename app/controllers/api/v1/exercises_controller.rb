@@ -30,12 +30,12 @@ class Api::V1::ExercisesController < Api::V1::BaseController
         # reinstatiate the iterator to start at the beginning
         itr = 0
 
-        # update the exerciseDay
-        @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
 
         # Loop through each exercise 
         # params[:exercise].each -> exercise[:srw]
         params[:exercise].each do |exercise|
+            # update the exerciseDay
+            @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
 
             # if updating doesn't work | roadblock one is params[:day]
             if !@exerciseDay[itr].update(name: exercise[:name], dayofweek: params[:day])
