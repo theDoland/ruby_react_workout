@@ -11,3 +11,9 @@ Checkout the live website here: [mygymgoals.com](http://www.mygymgoals.com)
 
 ## Test Suite
 * Learning currently in development
+
+## TODO
+* View mode to enable full view of the exercise name
+* Workout naming
+* Saving past workouts as templates to fill in
+* Allowing google sheets or excel files to be imported
