@@ -17,3 +17,4 @@ Checkout the live website here: [mygymgoals.com](http://www.mygymgoals.com)
 * Workout naming
 * Saving past workouts as templates to fill in
 * Allowing google sheets or excel files to be imported
+* Profile page using D3 plots to track weight loss/gain and pounds lifted
