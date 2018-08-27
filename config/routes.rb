@@ -9,9 +9,13 @@ Rails.application.routes.draw do
   end
   post '/api/v1/signup', to: 'api/v1/users#create'
   post '/api/v1/user_token', to: 'user_token#create'
-  post '/api/v1/create_exercise', to: 'api/v1/exercises#create'
-  patch '/api/v1/update_exercise', to: 'api/v1/exercises#update'
+
+  patch '/api/v1/modify_exercise', to: 'api/v1/exercises#modify_exercise'
+  patch '/api/v1/update_exercise', to: 'api/v1/exercises#update_exercise'
+  patch '/api/v1/modify_srw', to: 'api/v1/exercises#modify_srw'
+  patch '/api/v1/update_srw', to: 'api/v1/exercises#update_srw'
   get 'api/v1/index', to: 'api/v1/exercises#index'
+  
   delete '/api/v1/delete_user', to: 'api/v1/users#destroy'
   get 'api/v1/user', to: 'api/v1/users#user'
   get '/*path', to: 'api/v1/react#index'

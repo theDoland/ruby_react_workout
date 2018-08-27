@@ -1,23 +1,9 @@
 class Api::V1::ExercisesController < Api::V1::BaseController
     before_action :authenticate_user
     include ExerciseHelper
-    # currently create is unused, will keep for potential refactoring!
-    def create
-        @user = current_user
-        params[:exercise].each do |exercise|
-            @exercises = Exercise.new(exercise_params(exercise))
-            @exercises.user = @user
+    # more network calls vs destroy all and recreate objects
 
-            if !@exercises.save
-                render json: @exercises.errors, status: :unprocessable_entity
-                return
-            end
-        end
-
-        render json: @exercises, status: :created
-    end
-
-    def update
+    def modify_exercise
         @user = current_user
         # modify only the current days rows
         @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
@@ -26,31 +12,67 @@ class Api::V1::ExercisesController < Api::V1::BaseController
         length = @exerciseDay.size - params[:exercise].size
         itr = @exerciseDay.size - 1
 
-        modifyExercise(@user, @exerciseDay, length, itr)
-        # reinstatiate the iterator to start at the beginning
+        helperModifyExercise(@user, @exerciseDay, length, itr)
+        
+        render json: @user, status: :reset_content
+    end
+    
+    def update_exercise
+        @user = current_user
+        @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
         itr = 0
 
-
-        # Loop through each exercise 
-        # params[:exercise].each -> exercise[:srw]
+        # update the names/days for each exercise
         params[:exercise].each do |exercise|
-            # update the exerciseDay
-            @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
 
-            # if updating doesn't work | roadblock one is params[:day]
             if !@exerciseDay[itr].update(name: exercise[:name], dayofweek: params[:day])
                 render json: @user.errors, status: :unprocessable_entity
                 return
-            # otherwise it updated, now update the srw for that exercise
-            else
-                srwcount = 0
-                modifySrw(exercise, @exerciseDay, itr, @user)
+            end
+
+            itr += 1
+        end
+
+        render json: @user, status: :reset_content
+    end
+
+    def modify_srw
+        @user = current_user
+        @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
+        itr = 0
+        
+        params[:exercise].each do |exercise|
+            helperModifySrw(exercise, @exerciseDay, itr, @user)
+            itr += 1
+        end
+
+        render json: @user, status: :reset_content
+
+    end
+
+    def update_srw
+        @user = current_user
+        @exerciseDay = @user.exercises.where(:dayofweek => params[:day])
+        itr = 0
+
+        params[:exercise].each do |exercise|
+            # reset iterator and update values in the sets reps and weight
+            srwcount = 0
+            exLen = exercise[:srw].size
+
+            while srwcount < exLen
+                if !@exerciseDay[itr].sets_reps_weights[srwcount].update(sets: exercise[:srw][srwcount][:sets], reps: exercise[:srw][srwcount][:reps], weight: exercise[:srw][srwcount][:weight])
+                    render json: @user.errors, status: :unprocessable_entity
+                    return
+                end
+
+                srwcount += 1
             end
             itr += 1
         end
 
         render json: @user, status: :reset_content
-        
+
     end
 
     def index

@@ -117,17 +117,24 @@ export class WorkoutBox extends React.Component {
             exercise: this.state.exerciseRows,
             day: this.state.currentDay,
         }
-        axios.patch('/api/v1/update_exercise', data, config)
+        axios.patch('/api/v1/modify_exercise', data, config)
         .then(response => {
-            if(response.status === 401){
-                this.props.history.push("/");
-            }
-            else{
-                sessionStorage.setItem(this.state.currentDay, sessionStorage.getItem(this.state.currentDay))
-            }
-            document.getElementById("save-overlay").style.display = "none";
+            axios.patch('/api/v1/update_exercise', data, config)
+            .then(response => {
+                axios.patch('/api/v1/modify_srw', data, config)
+                .then(response => {
+                    axios.patch('/api/v1/update_srw', data, config)
+                    .then(response => {
+                        sessionStorage.setItem(this.state.currentDay, sessionStorage.getItem(this.state.currentDay))
+                        document.getElementById("save-overlay").style.display = "none";
+                    })
+                })
+            })
         })
         .catch(error => {
+            if(error.status === 401){
+                this.props.history.push("/log_in");
+            }
             document.getElementById("save-overlay").style.display = "none";
         })
         
@@ -223,7 +230,7 @@ export class WorkoutBox extends React.Component {
             axios.get('/api/v1/index', config)
             .then(response => {
                 if(response.status === 401){
-                    this.props.history.push('/');
+                    this.props.history.push('/log_in');
                 }
                 if(response.data.length !== 0){
                     // parse the response data
@@ -253,7 +260,7 @@ export class WorkoutBox extends React.Component {
     
             })
             .catch(error => {
-                this.props.history.push('/');
+                this.props.history.push('/log_in');
             })
         }
         

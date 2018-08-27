@@ -1,5 +1,5 @@
 module ExerciseHelper
-    def modifyExercise(user, exerciseDay, length, itr)
+    def helperModifyExercise(user, exerciseDay, length, itr)
         
         # add rows because new length > old length
         if length < 0
@@ -18,6 +18,7 @@ module ExerciseHelper
             @exercises.save
         
         end
+
     end
 
     def deleteExercise(exerciseDay, length, itr, currCount)
@@ -29,7 +30,7 @@ module ExerciseHelper
         end
     end
     
-    def modifySrw(exercise, exerciseDay, itr, user)
+    def helperModifySrw(exercise, exerciseDay, itr, user)
         srwcount = 0
                 
         # if new size is greater than old size, we add srw rows
@@ -37,21 +38,6 @@ module ExerciseHelper
             addSrw(srwcount, exercise, exerciseDay, itr)
         else
             deleteSrw(srwcount, exercise, exerciseDay, itr)
-        end
-
-        # reset iterator and update values in the sets reps and weight
-        srwcount = 0
-        exLen = exercise[:srw].size
-
-        # reset exerciseDay so it takes srw into account
-        exerciseDay = user.exercises.where(:dayofweek => params[:day]) 
-        while srwcount < exLen
-            if !exerciseDay[itr].sets_reps_weights[srwcount].update(sets: exercise[:srw][srwcount][:sets], reps: exercise[:srw][srwcount][:reps], weight: exercise[:srw][srwcount][:weight])
-                render json: user.errors, status: :unprocessable_entity
-                return
-            end
-
-            srwcount += 1
         end
     end
 
