@@ -132,10 +132,11 @@ export class WorkoutBox extends React.Component {
             })
         })
         .catch(error => {
-            if(error.status === 401){
-                this.props.history.push("/log_in");
-            }
+            localStorage.removeItem("jwt");
+            localStorage.removeItem("email");
+            localStorage.removeItem("name");
             document.getElementById("save-overlay").style.display = "none";
+            this.props.history.push("/log_in");
         })
         
     }
@@ -203,11 +204,16 @@ export class WorkoutBox extends React.Component {
                     })
                 }    
             })
+            .catch(error => {
+                console.log(error);
+                this.state.history.push('/log_in');
+            })
         }
     }
     componentWillMount() {
+        // potentially do a get request to check for credentials
         if(!localStorage.getItem("jwt")){
-            this.props.history.push("/");
+            this.props.history.push("/log_in");
         }
     }
     componentDidMount() {
