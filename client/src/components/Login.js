@@ -3,7 +3,6 @@ import axios from 'axios';
 import "./styles/Login.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Footer from './Footer';
-// TODO: REMEMBER ME BOX --> change local storage
 
 class Login extends Component {
     constructor(props){

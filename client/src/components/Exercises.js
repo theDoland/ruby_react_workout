@@ -5,9 +5,6 @@ import DaysOfWeek from './DaysOfWeek.js'
 import WorkoutRows from './WorkoutRows.js'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-
-// TODO: better menu bar placement (rework the menu)
-// TODO: LINK COLOR WHEN HOLD DOWN DROPDOWN LINKS
 export class WorkoutBox extends React.Component {
     constructor(props){
         super(props);
@@ -21,7 +18,7 @@ export class WorkoutBox extends React.Component {
                     reps: 0,
                     weight: 0,
                 }],
-                dayofweek: date.getDay(), // not sure about this
+                dayofweek: date.getDay(),
             }],
             // automatically go to the current day
             currentDay: date.getDay(),
@@ -104,8 +101,8 @@ export class WorkoutBox extends React.Component {
         sessionStorage.setItem(this.state.currentDay, JSON.stringify(exRows));
     }
     saveRows(){
-        // place the current workouts into this shit (showing null since session won't have anything if null)
-         
+
+        // create overlay to ensure user knows the saving is occuring
         document.getElementById("save-overlay").style.display = "flex";
         var config = {
             headers: {

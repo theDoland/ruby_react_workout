@@ -2,7 +2,6 @@ import React from 'react';
 import "./styles/WorkoutRows.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-/*TODO: Offset srw so that space below weight is free */
 class WorkoutRows extends React.Component {
     
     render() {
@@ -14,7 +13,7 @@ class WorkoutRows extends React.Component {
             let numSRW = this.props.preRows[i].srw.length ? this.props.preRows[i].srw.length : 0;
             let srwGrid = [];
             for(let j = 0; j < numSRW; j++){
-                // HAVE TO CHANGE THE HANDLECHANGE FUNCTION
+                
                 srwGrid.push(
                     <div key={j} className="col-5 col-sm-3 col-md-2 col-lg-2 WorkoutRow-SrwDiv">
                         <div className="row mx-auto">
