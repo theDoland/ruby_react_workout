@@ -18,26 +18,26 @@ class CreateUser extends Component {
                 <form id="createForm" onSubmit={this.props.onSubmit}>
                     {this.props.hasError ? <div id="errorLogin"><b className="errorText">Email already taken!</b></div> : <div></div>}
                     <div className="row">
-                        <div className="col-sm-12">
-                            <input type="text" name="name" placeholder="Name" required size="22"/>
+                        <div className="col-8 offset-2">
+                            <input className="form-control" type="text" name="name" placeholder="Name" required size="22"/>
                         </div>
                     </div>
                     <br/>
                     <div className="row">
-                        <div className="col-sm-12">
-                            <input type="email" name="email" placeholder="Email" required size="22"/>
+                        <div className="col-8 offset-2">
+                            <input className="form-control" type="email" name="email" placeholder="Email" required size="22"/>
                         </div>
                     </div>
                     <br/>
                     <div className="row">
-                        <div className="col-sm-12">
-                            <input type="password" name="password" placeholder="Password" required minLength="6" size="22"/> 
+                        <div className="col-8 offset-2">
+                            <input className="form-control" type="password" name="password" placeholder="Password" required minLength="6" size="22"/> 
                         </div>
                     </div>
                     <br/>
                     <div className="row">
-                        <div className="col-sm-12">
-                            <input type="password" name="password_confirmation" placeholder="Password Confirmation" required size="22"/>
+                        <div className="col-8 offset-2">
+                            <input className="form-control" type="password" name="password_confirmation" placeholder="Password Confirmation" required size="22"/>
                         </div>
                     </div>
                     <br/>

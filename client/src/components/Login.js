@@ -68,14 +68,17 @@ class Login extends Component {
                             <h1>Log in</h1>
                         </div>
                     </div>
+                    
                     <form id="loginForm" className="text-center" onSubmit={this.getUser}>
                         {
                             this.state.hasError ? <div id="errorLogin"><b className="errorText">Invalid Email/Password Combination</b></div> : <div></div>
                         }
-                        <input type="email" name="email" placeholder="Email" size="22" required/> <br/><br/>
-                        <input type="password" name="password" placeholder="Password" size="22" required/><br/><br/>
+                        <input className="col-8 offset-2 form-control" type="email" name="email" placeholder="Email" size="22" required/> <br/>
+                        <input className="col-8 offset-2 form-control" type="password" name="password" placeholder="Password" size="22" required/><br/>
+                        
                         <input type="submit" className="btn btn-lg Login-btnsize" value="Log in"/>
                     </form>
+                    
                 </div>
             </div>
             <div className="container">

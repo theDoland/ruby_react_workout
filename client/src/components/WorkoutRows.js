@@ -17,17 +17,17 @@ class WorkoutRows extends React.Component {
                 srwGrid.push(
                     <div key={j} className="col-5 col-sm-3 col-md-2 col-lg-2 WorkoutRow-SrwDiv">
                         <div className="row mx-auto">
-                            <div className="col-12 col-sm-12 col-md-12 col-lg-12 WorkoutRow-Srw">
-                                <input onChange={(event) => this.props.handleChange("sets",i,j,event)} size="2"
+                            <div className="col-12 col-sm-12 col-md-12 col-lg-12 WorkoutRow-Srw input-group">
+                                <input className="form-control" onChange={(event) => this.props.handleChange("sets",i,j,event)} size="2"
                                             type="text" name="sets" placeholder="Set" value={this.props.preRows[i].srw[j].sets ? this.props.preRows[i].srw[j].sets : ""} />        
                                 
-                                <input onChange={(event) => this.props.handleChange("reps",i,j,event)} size="2" 
+                                <input className="form-control" onChange={(event) => this.props.handleChange("reps",i,j,event)} size="2" 
                                             type="text" name="reps" placeholder="Rep" value={this.props.preRows[i].srw[j].reps ? this.props.preRows[i].srw[j].reps : ""} />
                             </div>
                         </div>
                         <div className="row mx-auto">
-                            <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <input className="WorkoutRow-Weight" placeholder="Weight" onChange={(event) => this.props.handleChange("weight",i,j,event)} 
+                            <div className="col-12 col-sm-12 col-md-12 col-lg-12 input-group">
+                                <input className="WorkoutRow-Weight form-control" size="4" placeholder="Weight" onChange={(event) => this.props.handleChange("weight",i,j,event)} 
                                             type="text" name="weight" value={this.props.preRows[i].srw[j].weight ? this.props.preRows[i].srw[j].weight : ""} />                     
                             </div>
                         </div>

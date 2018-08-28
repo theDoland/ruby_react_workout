@@ -11,7 +11,7 @@
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    -webkit-appearance: none;
+    
 }
 
 .WorkoutRow-Weight {
