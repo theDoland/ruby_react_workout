@@ -125,17 +125,29 @@ export class WorkoutBox extends React.Component {
                         sessionStorage.setItem(this.state.currentDay, sessionStorage.getItem(this.state.currentDay))
                         document.getElementById("save-overlay").style.display = "none";
                     })
+                    .catch(error => {
+                        this.saveError();
+                    })
                 })
+                .catch(error => {
+                    this.saveError();
+                })
+            })
+            .catch(error => {
+                this.saveError();
             })
         })
         .catch(error => {
-            localStorage.removeItem("jwt");
-            localStorage.removeItem("email");
-            localStorage.removeItem("name");
-            document.getElementById("save-overlay").style.display = "none";
-            this.props.history.push("/log_in");
+            this.saveError()
         })
         
+    }
+    saveError() {
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("email");
+        localStorage.removeItem("name");
+        document.getElementById("save-overlay").style.display = "none";
+        this.props.history.push("/log_in");
     }
     getProfile() {
         this.props.history.push("/profile");
