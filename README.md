@@ -4,8 +4,11 @@ Checkout the live website here: [mygymgoals.com](http://www.mygymgoals.com)
 * React 16.4.1
 * Built on Linux and hosted on Heroku!
 
-## How to start the server
+## Cloning the repository
+* Create the secret key using `rake secret`
+* create / migrate the database using `rake db:migrate`
 
+## How to start the server
 * In the root directory, run the command: `rake start`
 * Remember to run `rake db:migrate` to migrate the database
 
